@@ -1,0 +1,93 @@
+
+body{
+    overflow-x: hidden;
+}
+.bg-gradient-primary {
+    background: linear-gradient(87deg, #F20505, #F20505 100%) !important;
+}
+th{
+    white-space:nowrap;
+}
+
+.navbar-vertical .navbar-brand > img {
+    max-width: 5rem;
+    max-height: 5rem;
+}
+.card-employee {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    border: 1px solid rgba(0, 0, 0, .05);
+    border-radius: .375rem;
+    background-color: #fff;
+    background-clip: border-box;
+}
+.card-header{
+    background-color: #1c1f38;
+    color: #ffffff;
+}
+
+.registrar{
+    background-color:#4f588b; ;
+    color: #ffffff;
+}
+.buscar{
+    margin-top: 30px;
+    margin-left: 25px;
+}
+.buscempleado{
+    background-color:#4f588b;
+    color: #ffffff;
+}
+
+.buscempleado:hover{
+    transform: scale(1.1);
+    transition: 0.4s;
+    box-shadow: 1px 1px 15px -3px rgba(0, 0, 0, 0.20);
+    color: #ffff;
+}
+
+
+.botones{
+    margin-left: -35px;
+}
+/*BOTONES TABLA DE EMPLEADOS*/
+.mas,.editar{
+    background-color:#8999e5;
+    color:#ffffff;
+}
+
+.icono{
+    margin-left: 5px;
+    color: #ffffff;
+}
+
+.tale-bg {
+    /*background-image: url("https://i.imgur.com/dpqZJV5.jpg");*/
+    background-size: cover;
+    width: 400px;
+    height: 150px;
+    border-radius: 20px;
+    box-shadow: 0px 8px 16px 4px #9E9E9E;
+    margin-top: 50px;
+    margin-bottom: 50px
+}
+
+.time-font {
+    font-size: 50px
+}
+
+.sm-font {
+    font-size: 18px
+}
+
+.med-font {
+    font-size: 28px
+}
+
+.large-font {
+    font-size: 60px
+}
+

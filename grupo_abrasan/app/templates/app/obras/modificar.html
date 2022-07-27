@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Modificar Obra</title>
+    {% include "comun/estilos.html"%}
+</head>
+
+<body class="bg-white" >
+    <!-- Sidenav -->
+    {% include 'comun/nav.html' %}
+    <!-- Main content -->
+    <div class="main-content bg-white" id="panel">
+        <!-- Topnav -->
+        {% include 'comun/navbar.html' %}
+
+        <div class="header pb-4 border-top">
+            <div class="container-fluid">
+                <div class="header-body">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+       
+        <!-- Page content -->
+                <div class="row">
+                    <div class="col-12 col-md-6 offset-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-header" style="background-color:#110273;">
+                                    <h3 style="color:white">Editar obra</h3>
+                                </div>
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12">
+                                          {{form.nombre.label_tag}}
+                                          {{form.nombre}}
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            {{form.ubicacion.label_tag}}
+                                            {{form.ubicacion}}
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            {{form.total_villas.label_tag}}
+                                            {{form.total_villas}}
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            {{form.status.label_tag}}
+                                            {{form.status}}
+                                        </div>
+                                    </div>
+
+                                    <a type="reset" value="Cancelar" style="background-color:#F20505; color:white" href="{% url 'app:listar_obras' %}" class="btn btn-md">Cancelar</a>
+                                    <input type="submit" value="Editar" style="background-color:#110273; color:white" value="Guardar" class="btn btn-md">
+
+                                </form>
+                                {{mensaje}}
+                        </div>
+                    </div>
+                </div>
+       
+        </div>
+        
+        
+    </div>
+
+    {% include 'comun/script.html'  %}
+   
+</body>
+
+</html>

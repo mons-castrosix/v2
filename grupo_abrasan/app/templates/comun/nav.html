@@ -1,0 +1,117 @@
+{% load static %}
+ <!-- Sidenav -->
+ <nav class="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-light bg-dark" id="sidenav-main">
+    <div class="scrollbar-inner" style="background-color:#110273; ">
+        <!-- Brand -->
+        <div class="sidenav-header d-flex align-items-center bg-white">
+            <a class="navbar-brand" href={% url 'app:panel'%} >
+                <img src={% static 'app/img/Logo.jpeg' %}  alt="..." >
+                
+            </a>
+            <div class="ml-auto">
+                <!-- Sidenav toggler -->
+                <div class="sidenav-toggler d-none d-xl-block" data-action="sidenav-unpin" data-target="#sidenav-main">
+                    <div class="sidenav-toggler-inner">
+                        <i class="sidenav-toggler-line"></i>
+                        <i class="sidenav-toggler-line"></i>
+                        <i class="sidenav-toggler-line"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-inner">
+            <!-- Collapse -->
+            <div class="collapse navbar-collapse" id="sidenav-collapse-main" style="background-color:#110273;">
+                <!-- Nav items -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        {% if perms.app.view_producto %}
+                        <a class="nav-link" href="{% url 'app:listar_inventario' %}">
+                            <i class="fa-solid fa-boxes-stacked text-primary"></i>
+                            <span class="nav-link-text text-white">Inventario</span>
+                        </a>
+                        {% endif %}
+                        
+                    </li>
+                    <li class="nav-item">
+                        {% if perms.app.view_obras %}
+                        <a class="nav-link" href="{% url 'app:listar_obras' %}">
+                            <i class="fa-solid fa-person-digging text-orange"></i>
+                            <span class="nav-link-text text-white">Obras</span>
+                        </a>
+                        {% endif %}
+                    </li>
+                    <li class="nav-item">
+                        {% if perms.app.view_bodega %}
+                        <a class="nav-link" href="{% url 'app:listar_bodegas' %}" >
+                            <i class="fa-solid fa-trowel-bricks text-info"></i>
+                            <span class="nav-link-text text-white">Bodegas</span>
+                        </a>
+                        {% endif %}
+                    </li>
+                    <li class="nav-item">
+                        {% if perms.app.view_villa %}
+                        <a class="nav-link" href="{% url 'app:listar_villas' %}" >
+                            <i class="fa-solid fa-people-roof text-pink"></i>
+                            <span class="nav-link-text text-white">Villas</span>
+                        </a>
+                        {% endif %}
+                    </li>
+                    <li class="nav-item">
+                        {% if perms.app.view_solicitud %}
+                        <a class="nav-link" href="{% url 'app:listar_solicitudes' %}" >
+                            <i class="fa-solid fa-clipboard text-primary"></i>
+                            <span class="nav-link-text text-white">Solicitudes de Material</span>
+                        </a>
+                        {% endif %}
+                    </li>
+                    <li class="nav-item">
+                        {% if perms.app.view_recepcion %}
+                        <a class="nav-link" href="{% url 'app:recepcion_bodega' %}" >
+                            <i class="fa-solid fa-people-carry-box text-warning"></i>
+                            <span class="nav-link-text text-white">Recepcion de Material</span>
+                        </a>
+                        {% endif %}
+                    </li>
+                    <li class="nav-item">
+                        {% if perms.app.add_log_entry %}
+                        <a class="nav-link" href="{% url 'app:register' %}" >
+                            <i class="fa-solid fa-user-plus text-white"></i>
+                            <span class="nav-link-text text-white">Agregar Usuario</span>
+                        </a>
+                        {% endif %}
+                    </li>
+
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'app:contra' %}" >
+                            <i class="fa-solid fa-key text-purple"></i>
+                            <span class="nav-link-text text-white">Cambiar contraseña</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'app:logout' %}" >
+                            <i class="fa-solid fa-arrow-right-from-bracket text-warning"></i>
+                            <span class="nav-link-text text-white">Cerrar Sesión</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'app:login' %}" >
+                            <i class="fa-solid fa-id-card-clip text-warning"></i>
+                            <span class="nav-link-text text-white">Iniciar sesión</span>
+                        </a>
+                    </li>
+
+                    {% endif %}
+                    <!--
+                   
+                </ul>
+                <!-- Divider -->
+                <hr class="my-3">
+                <!-- Heading -->
+                
+            </div>
+        </div>
+    </div>
+</nav>

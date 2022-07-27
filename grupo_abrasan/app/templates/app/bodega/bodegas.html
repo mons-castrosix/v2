@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Inventario</title>
+    {% include "comun/estilos.html"%}
+    {% load bootstrap5 %}
+    <link rel="stylesheet" href={% static 'app/css/inventario.css' %} type="text/css">
+   
+</head>
+
+<body class="bg-white" >
+    <!-- Sidenav -->
+    {% include 'comun/nav.html' %}
+    <!-- Main content -->
+    <div class="main-content bg-white" id="panel">
+        <!-- Topnav -->
+        {% include 'comun/navbar.html' %}
+
+        <div class="header pb-4 border-top">
+            <div class="container-fluid">
+                <div class="header-body">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+         
+        <div class="row">
+          <div class="col-12 col-md-10 offset-md-1">
+            <div class="card">
+              <div class="card-header" style="background-color:#110273;">
+                <div class="row">     
+                  <div class="col-6">
+                    <h3 style="color:white">Lista de Bodegas</h3>
+                  </div>
+                  <div class="col-6">
+                    {% if perms.app.add_bodega %}
+                    <a class="btn btn-sm float-right" style="background-color:#F20505; color:white;" href="{% url 'app:agregar_bodega' %}">Agregar Bodega</a>
+                    {% endif %}
+                  </div>
+                </div>
+            </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-5"></div>
+                  <div class="col-7">
+                    
+                  </div>
+                  
+                </div>
+                <div class="container">
+                  <div class="row mt-2">
+                    
+                    <div class="col-12">
+                      <div class="table-responsive">
+                        <table cellspacing="0" id="tabla" class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th >Nombre</th>
+                              <th>Ubicación</th>
+                              <th >Encargado</th>
+                              <th>Obra</th>
+                              <th>Opciones</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for b in bodegas %}
+                            <tr>
+                              <td>{{b.nombre}}</td>
+                              <td>{{b.ubicacion}}</td>
+                              <td>{{b.encargado}}</td>
+                              <td>{{b.obra.nombre}}</td>
+                              <td>
+                                {% if perms.app.delete_bodega %}
+                                <a class="btn btn-sm" style="background-color:#110273; color:white" href="{% url 'app:modificar_bodega' b.id %}" >Modificar</a>
+                                {% endif %}
+                                {% if perms.app.delete_bodega %}
+                                <a class="btn btn-sm" style="background-color:#F20205; color:white" onclick="eliminarBodega({{b.id}})">Eliminar</a>
+                               {% endif %}
+                               {% if perms.app.view_bodega %}
+                                <a class="btn btn-sm" style="background-color:#34495E; color:white" href="{% url 'app:listar_productobodega' b.id %}">Ver inventario</a>
+                              {% endif %}
+                              </td>   
+                            </tr>
+                            {% endfor %}
+                           
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div>
+                      
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+        
+
+
+</body>
+{% include 'comun/script.html' %}
+
+<script src="{% static "app/js/paginator.js" %}"></script>
+
+</html>

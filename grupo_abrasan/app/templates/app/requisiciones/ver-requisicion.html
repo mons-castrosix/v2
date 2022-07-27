@@ -1,0 +1,225 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Productos de Bodega {{productos.bodega_id}}</title>
+    {% include "comun/estilos.html"%}
+    {% load bootstrap5 %}
+    <link rel="stylesheet" href={% static 'app/css/inventario.css' %} type="text/css">
+   
+</head>
+
+<body class="bg-white" >
+    <!-- Sidenav -->
+    {% include 'comun/nav.html' %}
+    <!-- Main content -->
+    <div class="main-content bg-white" id="panel">
+        <!-- Topnav -->
+        {% include 'comun/navbar.html' %}
+
+        <div class="header pb-4 border-top">
+            <div class="container-fluid">
+                <div class="header-body">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-10 offset-md-1">
+              <div class="card">
+                <div class="card-header" style="background-color:#110273;">
+                  <div class="row">     
+                    <div class="col-6">
+                      <!--<h3 style="color:white">Productos en {{bodega.nombre}}</h3>-->
+                      <h3 style="color:white" id="sol">Requisición Solicitud <strong> {{solicitud}}</strong></h3>
+                    </div>
+                    <div class="col-6">
+                      <!--<a class="btn btn-sm float-right" style="background-color:#F20505; color:white;" href="{% url 'app:listar_inventario' %}">Agregar Producto de Inventario</a>-->
+                    </div>
+                    
+                  </div>
+              </div>
+
+              
+               
+                
+               
+                <div class="card-body">
+                        <div class="container">
+                            <div class="row mt-2">
+                            <div class="col-12">
+                                <form  method="post">
+                                    {% csrf_token %}
+                                <div class="table-responsive">
+                                <table cellspacing="0" id="tabla" class="table table-hover">
+                                    <thead>
+                                     
+                                     
+                                     
+                                     <tr> 
+                                      <th style="background-color:#110273; color:white;"><span>Solicita:</span> {{solicita.solicita}}</th>
+                                      <th style="background-color:#110273; color:white;"><span>Fecha: </span> {{solicita.fecha}}</th>
+                                      <th style="background-color:#110273; color:white;"><span>Obra:</span> {{solicita.obra__nombre}}</th>
+                                     </tr>
+                                      
+                                    <tr>
+                                        <th>Clave solicitud</th>
+                                        <th>Producto</th>
+                                        <th >Bodega</th>
+                                        <th>Unidad</th>
+                                        <th>Requisicion</th>
+                                        <th>Compras</th>
+                                        <th>Llegada</th>
+                                        <th>Pendiente</th>
+                                        <th>Utilizado</th>
+                                        <th>Saldo</th>
+                                        <th>Opciones</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for s in solicitudes %}
+                                    <tr>
+                                        <td>{{s.id}}</td>
+                                        <td>{{s.descripcion}}</td>
+                                        <td><strong> {{s.bodegaproducto_id__cantidad}}</strong></td>
+                                        <td>
+                                          {% if s.unidad == '1' %}
+                                          Pieza
+                                          {% elif s.unidad == '2' %}
+                                          Cubeta
+                                          {% elif s.unidad == '3' %}
+                                          Galón
+                                          {% elif s.unidad == '4' %}
+                                          Bulto
+                                          {% elif s.unidad == '5' %}
+                                          m³
+                                          {% elif s.unidad == '6' %}
+                                          Kg
+                                          {% elif s.unidad == '7' %}
+                                          Tonelada
+                                          {% elif s.unidad == '8' %}
+                                          Milla
+                                          {% elif s.unidad == '9' %}
+                                          Litro
+                                          {% elif s.unidad == '10' %}
+                                          Juego
+                                          {% elif s.unidad == '11' %}
+                                          Lote
+                                          {% elif s.unidad == '12' %}
+                                          m²
+                                          {% endif %}
+
+
+                                      </td>
+                                        <td><strong style="color:#F20505;"> {{s.cantidad}}</strong></td>
+                                        {% for c in compra %}
+                                            {% if s.id == c.solicitud_id %}
+                                            <td><strong>{{c.compra}}</strong> </td>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        {% if s.recepcion__llegada == None  %}
+                                        <td>0</td>
+                                        {% else %}
+                                        <td><strong> {{s.recepcion__llegada}}</strong></td>
+                                        {% endif %}
+                                       
+                                        {% if s.recepcion__pendiente == None %}
+                                        <td>0</td>
+                                        {% else %}
+                                        <td>{{s.recepcion__pendiente}}</td>
+                                        {% endif %}
+
+                                        {% if s.recepcion__utilizado == None %}
+                                        <td>0</td>
+                                        {% else %}
+                                        <td><strong> {{s.recepcion__utilizado}}</strong></td>
+                                        {% endif %}
+
+                                        {% if s.recepcion__saldo == None %}
+                                        <td>0</td>
+                                        {% else %}
+                                        <td>{{s.recepcion__saldo}}</td>
+                                        {% endif %}
+
+                                      <td>
+                                        {% if perms.app.delete_solicitud %}
+                                        <a class="btn btn-sm" style="background-color:#F20505; color:white" href="{% url 'app:eliminarprod_solicitud' s.id %}" >Eliminar</a>
+                                        {% endif %}
+                                      </td>
+                                        
+                                        
+                                        
+                                    </tr>
+                                    {% endfor %}
+                                    
+                                    </tbody>
+                                </table>
+                                <hr>
+
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-4 col-md-8 col-sm-8 col-xs--"></div>
+                          <div class="col-4 col-md-4 col-sm-8 col-xs-8">
+                              <a type="reset" value="Cancelar" style="background-color:#F20505; color:white" href="{% url 'app:listar_solicitudes' %}" class="btn btn-md">Cancelar</a>
+                              <input type="submit" value="Guardar" style="background-color:#110273; color:white" value="Guardar" class="btn btn-md">
+                          </div>
+                          
+                      </div>
+                    </form>
+                  
+                
+                </div>
+              </div>
+            </div>
+        </div>
+
+        {% include 'comun/script.html' %}
+   
+</body>
+<script>
+    $(document).ready(function(){
+        var dynamicVariable=$("#sol").find("strong").text();
+        $("#tabla").DataTable({
+            dom:"Bfrtip",
+            buttons:{
+              dom:{
+                button:{
+                  className:'btn'
+                }
+              },
+              buttons:[
+              {
+                extend:"excel",
+                exportOptions:{
+                  columns:[0,1,2,3,4,5,6,7,8,9]
+                },
+                text:'Exportar a excel',
+                className:'btn btn-outlime-success',
+                excelStyles:{
+                  template:'header_blue'
+                },
+                filename:"'Requisicion Solicitud"+dynamicVariable+"'",
+                title:"Requisicion"+" "+dynamicVariable,
+                sheetName:" "+dynamicVariable+""
+                
+              }]
+            }
+        });
+       
+        $(".dataTables_info").hide()
+        $(".dataTables_paginate ").hide()
+        
+        
+      })
+</script>
+
+
+</html>

@@ -1,0 +1,147 @@
+
+    
+    {% load static %}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        
+        <title>Villas</title>
+        {% include "comun/estilos.html"%}
+        {% load bootstrap5 %}
+        <link rel="stylesheet" href={% static 'app/css/inventario.css' %} type="text/css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+
+       
+    </head>
+    
+    <body class="bg-white" >
+        <!-- Sidenav -->
+        {% include 'comun/nav.html' %}
+        <!-- Main content -->
+        <div class="main-content bg-white" id="panel">
+            <!-- Topnav -->
+            {% include 'comun/navbar.html' %}
+    
+            <div class="header pb-0 border-top">
+                <div class="container-fluid">
+                    <div class="header-body">
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-12 col-md-10 offset-md-1">
+
+                <div style="width: 100%; height: 20em; margin-top: 2em;">
+                  <canvas style="height:45em" id="horizontalBarChartCanvas"></canvas>
+              </div>
+              <script>
+                
+                const views = {{ view_s | safe }};
+                
+                var now="{{ now }}";
+                
+                var last_week="{{last_week}}";
+                var villa="{{identificador.identificador}}";
+                
+                
+                const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+                var barColors = [];
+                var xValues = [];
+                var yValues = [];
+                var labels=[];
+                
+                views.forEach(function(x,y){
+                      xValues.push(x.bodegaproducto__descripcion);
+                      yValues.push(x.total)
+                      
+                      
+                  })
+                  
+                  
+              
+                
+              
+                console.log(yValues)
+                console.log(xValues)
+                var densityCanvas = document.getElementById("horizontalBarChartCanvas");
+              
+                    Chart.defaults.global.defaultFontFamily = "Lato";
+                    Chart.defaults.global.defaultFontSize = 7;
+              
+                    var cantidad = {
+                      label: 'Cantidad',
+                      data: yValues,
+                      backgroundColor: '#110273',
+                      borderColor: '#F20505',
+                      yAxisID: "y-axis-density"
+                    };
+                    console.log(cantidad)
+                    var insumos = {
+                      labels: xValues,
+                      datasets: [cantidad]
+                    };
+                    var chartOptions = {
+                      responsive: true,
+                      legend: { display: false },
+                      scales: {
+                        xAxes: [{
+                          id:"x-axis-gravity",
+                         
+                          
+                        }],
+                        yAxes: [{
+                          id: "y-axis-density",
+                          ticks:{
+                            padding:10,
+                            autoSkip:false,
+                            min:0,
+                            stepSize:1,
+                            autoSkip:false,
+                            beginAtZero:true,
+                            
+                          }
+                          
+                        }, ]
+                      },
+                      ticks:{
+                        autoSkip:false,
+                        beginAtZero: true,
+                        
+                      }
+                      ,
+                        title:{
+                          display:true,
+                          text:'Explosión de Insumos Villa  '+villa+'     '+'Semana'+"'" +last_week+"' al "+now+"'",
+                          fontSize:16,
+                          fontFamily:'Arial',
+
+                        }
+                      
+                      
+                    };
+                    var barChart = new Chart(densityCanvas, {
+                      type: 'horizontalBar',
+                      data: insumos,
+                      options: chartOptions
+                    });
+
+                   
+                   
+              </script>
+                
+
+              </div>
+            </div>
+             
+        
+    
+    {% include 'comun/script.html' %}
+       
+    </body>
+    
+    
+    
+    </html>

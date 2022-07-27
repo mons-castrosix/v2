@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Añadir Producto</title>
+    {% include "comun/estilos.html"%}
+</head>
+
+<body class="bg-white" >
+    <!-- Sidenav -->
+    {% include 'comun/nav.html' %}
+    <!-- Main content -->
+    <div class="main-content bg-white" id="panel">
+        <!-- Topnav -->
+        {% include 'comun/navbar.html' %}
+
+        <div class="header pb-4 border-top">
+            <div class="container-fluid">
+                <div class="header-body">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <!-- Page content -->
+                <div class="row">
+                    <div class="col-12 col-md-6 offset-md-3">
+                        <div class="card">
+                            <div class="card-header" style="background-color:#110273;">
+                                <h3 style="color:white">Agregar producto a Bodega {{bodega.nombre}}</h3>
+                            </div>
+                            <div class="card-body">
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-row">
+                                        <div class="form-group col-md-2">
+                                          <label for="">{{clave}}</label>
+                                          <input type="hidden" name="clave" value={{clave}}>
+                                          <input type="hidden" name="bodega" value={{bodega.id}}>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            {{form.ubicacion.label_tag}}
+                                            {{form.ubicacion}}
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            {{form.categoria.label_tag}}
+                                            {{form.categoria}}
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            {{form.proveedor.label_tag}}
+                                            {{form.proveedor}}
+                                          </div>
+                                        
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12">
+                                            {{form.descripcion.label_tag}}
+                                        {{form.descripcion}}
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            {{form.unidad.label_tag}} <br>
+                                            {{form.unidad}}
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            {{form.cantidad.label_tag}}
+                                            {{form.cantidad}}
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            {{form.minimo.label_tag}}
+                                            {{form.minimo}}
+                                        </div>
+                                    </div>
+                                    <a type="reset" value="Cancelar" style="background-color:#F20505; color:white" href="{% url 'app:listar_productobodega' bodega.id %}" class="btn btn-md">Cancelar</a>
+                                    <input type="submit" value="Guardar" style="background-color:#110273; color:white" value="Guardar" class="btn btn-md">
+
+                                </form>
+                                {{mensaje}}
+                        </div>
+                    </div>
+                </div>
+       
+        </div>
+        
+        
+    </div>
+
+    {% include 'comun/script.html'  %}
+   
+</body>
+
+</html>

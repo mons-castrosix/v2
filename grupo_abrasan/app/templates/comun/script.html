@@ -1,0 +1,56 @@
+{% load static %}
+
+
+
+<!-- Argon Scripts -->
+    <!-- Core -->
+
+   <script src={% static "app/js/argon/js.cookie.js" %}></script>
+   <script src={% static "app/js/jquery-3.6.0.min.js" %}></script>
+   <script src={% static "app/js/popper.min.js" %}></script>
+   <script src={% static "app/js/eliminar.js" %}></script>
+   
+   <script src={% static "app/js/argon/jquery.scrollbar.min.js" %}></script>
+   <script src={% static "app/js/argon/jquery-scrollLock.min.js" %}></script>
+   <script src={% static "app/js/argon/argon.js" %}></script>
+   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <script src="https://kit.fontawesome.com/9efd184e12.js" crossorigin="anonymous"></script>
+
+   
+   <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+   <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+   
+
+  <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/datatables-buttons-excel-styles@1.2.0/js/buttons.html5.styles.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/datatables-buttons-excel-styles@1.2.0/js/buttons.html5.styles.templates.min.js"></script>
+
+
+   {% if messages %}
+   {% for m in messages  %}
+     {% if m.tags == 'success'  %}
+     <script>
+       Swal.fire({
+         "tittle":"Felicitaciones",
+         "text":"{{m}}",
+         "icon":"success"
+       })
+     </script>
+     {% endif %}
+     {% if m.tags == 'error'  %}
+     <script>
+       Swal.fire({
+         "tittle":"Error!",
+         "text":"{{m}}",
+         "icon":"error"
+       })
+     </script>
+     {% endif %}
+     
+   {% endfor %}
+ {% endif %}
+ 
+    

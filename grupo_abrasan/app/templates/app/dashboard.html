@@ -1,0 +1,289 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+   
+    <title>Panel de Control</title>
+    {% include "comun/estilos.html" %}
+</head>
+
+<body class="bg-white" onload="saludo()">
+
+    <!-- Sidenav -->
+     {% include 'comun/nav.html' %}
+
+    <!-- Main content -->
+    <div class="main-content bg-white" id="panel">
+        <!-- Topnav -->
+        {% include 'comun/navbar.html' %}
+        <div class="header pb-6 border-top">
+            <div class="container-fluid">
+                <div class="header-body">
+                    <div class="row align-items-center py-4">
+                        <div class="col-lg-12 col-12 col-sm-12 col-xs-12">
+                            <h6 class="h2 d-inline-block mb-0 text-uppercase"> <i id="icon"></i><span id="saludo"></span></h6>
+                            <h6 class="h2 d-inline-block mb-0 text-uppercase">Son las <span id="time"></span></h6>
+                        </div>
+                       
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <!-- Page content -->
+        <div class="container-fluid mt--6">
+          <div class="row">
+            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Bodegas</p>
+                    <h5 class="font-weight-bolder mb-0">
+                      
+                      <span class="text-sm">{{bodegas}}</span>
+                    </h5>
+                  </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                  <i class="fa-solid fa-trowel-bricks" aria-hidden="true" style="color:white"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Obras</p>
+                    <h5 class="font-weight-bolder mb-0">{{obras}}</h5>
+                  </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                    <i class="fa-solid fa-person-digging" aria-hidden="true" style="color:white"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Villas</p>
+                    <h5 class="font-weight-bolder mb-0">
+                      {{villas}}
+                    </h5>
+                  </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                    <i class="fa-solid fa-people-roof text-white"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Obras Finalizadas</p>
+                    <h5 class="font-weight-bolder mb-0">
+                      {{finalizado}}
+                    </h5>
+                  </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                    <i class="fa-solid fa-building-shield text-white"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-1 col-sm-1 col-xs-1"></div>
+        <div class="col-md-5 col sm-6 col-xs-4">
+      
+          <table class="table align-items-center">
+              <thead class="thead-light">
+                  <tr>
+                      <th scope="col"  >Obra</th>
+                      <th scope="col"  >Bodega</th>
+                      <th scope="col"  >Estatus</th>
+                  </tr>
+              </thead>
+              <tbody class="list"> 
+                {% for t in table_obra %}
+                  <tr>
+                    
+                     <td class="budget">
+                          {{t.obra__nombre}}
+                      </td>
+                      <td>{{t.nombre}}</td>
+                      <td>
+                        {% if t.obra__status == '3' %}
+                                  <span class="badge badge-dot mr-4">
+                                    <i class="bg-info"></i>
+                                    <span class="status">En proceso</span>
+                                  </span>
+                                {% elif t.obra__status == '1' %}
+                                <span class="badge badge-dot mr-4">
+                                  <i class="bg-warning"></i>
+                                  <span class="status">Pendiente</span>
+                                </span>
+
+                                {% elif  t.obra__status == '2'%}
+                                <span class="badge badge-dot mr-4">
+                                  <i class="bg-success"></i>
+                                  <span class="status">Finalizado</span>
+                                </span>
+                                {% endif %}
+                      </td>
+                     
+                    </tr>
+                    {% endfor %}
+                         
+              </tbody>
+          </table>
+        </div>
+        <div class="col-md-5 col-sm-6 col-xs-5">
+          <div class="card">
+                      <div class="card-header border-0" style="background-color:#110273">
+                        <div class="row align-items-center">
+                          <div class="col">
+                            <h3 class="mb-0 text-white" >Últimas solicitudes</h3>
+                          </div>
+                          <div class="col text-right">
+                            <a href="#!" class="btn btn-sm btn-primary" style="background-color:#F20505; border-color:#F20505">
+                              <span class="nav-link-text text-white">Ver Todo</span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="table-responsive+">
+                        <!-- Projects table -->
+                        <table class="table align-items-center table-flush">
+                          <thead class="thead-light">
+                            <tr>
+                              <th scope="col">Solicitud</th>
+                              <th scope="col">Cantidad Productos</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for s in solicitud  %}
+                            <tr>
+                              
+                              <th scope="row">
+                                {{s.solicitud}}
+                              </th>
+                              <th>{{s.total}}</th>
+                            
+                            </tr>
+                          {% endfor %}
+                          
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+          </div>
+        </div>
+        <div class="col-md-1 col-sm-1 col-xs-1"></div>
+      </div>
+<!--
+      <div class="row">
+        <div class="col-md-1 col-sm-1 col-xs-1"></div>
+        <div class="col-md-10 col-sm-6 col-xs-4">
+          <div class="card">
+                      <div class="card-header border-0" style="background-color:#110273">
+                        <div class="row align-items-center">
+                          <div class="col">
+                            <h3 class="mb-0 text-white" >Inventario</h3>
+                          </div>
+                          <div class="col text-right">
+                            <a href="{% url 'app:listar_inventario' %}" class="btn btn-sm btn-primary" style="background-color:#F20505; border-color:#F20505">
+                              <span class="nav-link-text text-white" >Ver Todo</span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="table-responsive+">
+                       
+                        <table class="table align-items-center table-flush">
+                          <thead class="thead-light">
+                            <tr>
+                              <th scope="col">Material</th>
+                              <th scope="col">Unidad</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for i in inventario  %}
+                            <tr>
+                              
+                              <th scope="row">
+                                {{i.descripcion}}
+                              </th>
+                              <th>
+                                {% if i.unidad == '1' %}
+                                                    Pieza
+                                                    {% elif i.unidad == '2' %}
+                                                    Cubeta
+                                                    {% elif i.unidad == '3' %}
+                                                    Galón
+                                                    {% elif i.unidad == '4' %}
+                                                    Bulto
+                                                    {% elif i.unidad == '5' %}
+                                                    m³
+                                                    {% elif i.unidad == '6' %}
+                                                    Kg
+                                                    {% elif i.unidad == '7' %}
+                                                    Tonelada
+                                                    {% elif i.unidad == '8' %}
+                                                    Milla
+                                                    {% elif i.unidad == '9' %}
+                                                    Litro
+                                                    {% elif i.unidad == '10' %}
+                                                    Juego
+                                                    {% elif i.unidad == '11' %}
+                                                    Lote
+                                                    {% elif i.unidad == '12' %}
+                                                    m²
+                                                    {% endif %}
+                              </th>
+                            
+                            </tr>
+                          {% endfor %}
+                          
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+          </div>
+        </div>
+        <div class="col-md-1 col-sm-1 col-xs-1"></div>
+      </div>
+-->
+    {% include 'comun/script.html'  %}
+    <script src={% static "app/js/clock.js" %}></script>
+</body>
+
+</html>

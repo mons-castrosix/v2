@@ -1,0 +1,170 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Villas</title>
+    {% include "comun/estilos.html"%}
+    {% load bootstrap5 %}
+    <link rel="stylesheet" href={% static 'app/css/inventario.css' %} type="text/css">
+   
+</head>
+
+<body class="bg-white" >
+    <!-- Sidenav -->
+    {% include 'comun/nav.html' %}
+    <!-- Main content -->
+    <div class="main-content bg-white" id="panel">
+        <!-- Topnav -->
+        {% include 'comun/navbar.html' %}
+
+        <div class="header pb-4 border-top">
+            <div class="container-fluid">
+                <div class="header-body">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+         
+        <div class="row">
+          <div class="col-12 col-md-10 offset-md-1">
+            <div class="card">
+              <div class="card-header" style="background-color:#110273;">
+                <div class="row">     
+                  <div class="col-6">
+                    <h3 id="identificador" style="color:white">Explosión de Insumos Villa <strong>{{villa.identificador}}</strong> </h3>
+                  </div>
+                  <div class="col-6">
+                    <a class="btn btn-sm float-right" style="background-color:#F20505; color:white;" href="{% url 'app:grafico_villa' villa.id %}">Ver gráfico</a>
+                  </div>
+                </div>
+            </div>
+              <div class="card-body">
+                <div class="container">
+                  <div class="row mt-2">
+                    
+                    <div class="col-12">
+                      <div class="table-responsive">
+                        <table id="excel" cellspacing="0" class="table table-hover">
+                          <thead>
+                            <tr>
+                                <th>Clave</th>
+                              <th >Productos</th>
+                              <th>Fecha</th>
+                              <th>Cantidad</th>
+                              <th>Unidad</th>
+                              <th>Notas</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for i in insumos %}
+                            <tr>
+                                <td>{{i.bodegaproducto.clave}}</td>
+                              <td>{{i.bodegaproducto.descripcion}}</td>
+                              
+                             
+                              <td>{{i.fecha| date:"SHORT_DATE_FORMAT"}}</td>
+                              <td>{{i.cantidad}}</td>
+                              <td>
+
+                              
+                                  {% if i.bodegaproducto.unidad == '1' %}
+                                  Pieza
+                                  {% elif i.bodegaproducto.unidad == '2' %}
+                                  Cubeta
+                                  {% elif i.bodegaproducto.unidad == '3' %}
+                                  Galón
+                                  {% elif i.bodegaproducto.unidad == '4' %}
+                                  Bulto
+                                  {% elif i.bodegaproducto.unidad == '5' %}
+                                  m³
+                                  {% elif i.bodegaproducto.unidad == '6' %}
+                                  Kg
+                                  {% elif i.bodegaproducto.unidad == '7' %}
+                                  Tonelada
+                                  {% elif i.bodegaproducto.unidad == '8' %}
+                                  Milla
+                                  {% elif i.bodegaproducto.unidad == '9' %}
+                                  Litro
+                                  {% elif i.bodegaproducto.unidad == '10' %}
+                                  Juego
+                                  {% elif i.bodegaproducto.unidad == '11' %}
+                                  Lote
+                                  {% elif  i.bodegaproducto.unidad == '12'  %}
+                                  m²
+                                  {% endif %}
+                          
+
+                              </td>
+                              <td>
+                                  {% if i.notas == None %}
+                                  <span>  </span>
+                                  {% else %}
+                                  <span>{{i.notas}}</span>
+                                  {% endif %}
+
+                              </td>
+                                
+                                <!--<a class="btn btn-sm" style="background-color:#F20205; color:white">Eliminar</a>-->
+                              
+                            </tr>
+                            {% endfor %}
+                           
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+        
+
+{% include 'comun/script.html' %}
+   
+</body>
+<script type="text/javascript" src= {% static 'app/js/simple_numbers_no_ellipses.js'%}></script>
+<script>
+
+$(document).ready(function(){
+  var dynamicVariable=$("#identificador").find("strong").text();
+  $("#excel").DataTable({
+    "spaginationType": "simple_numbers_no_ellipses",
+      dom:"Bfrtip",
+      "pageLength": 12,
+      buttons:{
+        dom:{
+          button:{
+            className:'btn'
+          }
+        },
+        buttons:[
+        {
+          extend:"excel",
+          text:'Exportar a excel',
+          className:'btn btn-outlime-success',
+          excelStyles:{
+            template:'header_blue'
+          },
+          filename:"Exp_Ins_Villa"+dynamicVariable+"'",
+          title:"Explosión de Insumos Villa"+" "+dynamicVariable,
+          sheetName:" "+dynamicVariable+""
+          
+        }]
+      }
+  });
+ 
+
+  
+  $(".dataTables_info ").hide()
+})
+
+</script>
+
+</html>

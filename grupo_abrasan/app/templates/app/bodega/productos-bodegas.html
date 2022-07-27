@@ -1,0 +1,188 @@
+    {% load static %}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        
+        <title>Productos de Bodega {{productos.bodega_id}}</title>
+        {% include "comun/estilos.html"%}
+        {% load bootstrap5 %}
+        <link rel="stylesheet" href={% static 'app/css/inventario.css' %} type="text/css">
+       
+    </head>
+    
+    <body class="bg-white" >
+        <!-- Sidenav -->
+        {% include 'comun/nav.html' %}
+        <!-- Main content -->
+        <div class="main-content bg-white" id="panel">
+            <!-- Topnav -->
+            {% include 'comun/navbar.html' %}
+    
+            <div class="header pb-4 border-top">
+                <div class="container-fluid">
+                    <div class="header-body">
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col-12 col-md-10 offset-md-1">
+                  <div class="card">
+                    <div class="card-header" style="background-color:#110273;">
+                      <div class="row">     
+                        <div class="col-6">
+                          <h3 style="color:white">Productos en {{bodega.nombre}}</h3>
+                        </div>
+                        <div class="col-6">
+                          {% if perms.app.add_bodegaproducto %}
+                          <a class="btn btn-sm float-right" style="background-color:#F20505; color:white;" href="{% url 'app:agregar_producto' bodega.id %}">Agregar Producto de Inventario</a>
+                          {% endif %}
+                        </div>
+                        
+                      </div>
+                  </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-5">
+                          {% if perms.app.add_solicitud %}
+                          <a class="btn btn-sm float-left" style="background-color:#34495E; color:white;" href="{% url 'app:solicitud_requisicion' bodega.id %}">Solicitud Requisicion</a>
+                          {% endif %}
+                        </div>
+                        <div class="col-7">
+                          
+                         
+                        </div>
+                        
+                      </div>
+                      <div class="container">
+                        <div class="row mt-2">
+                          <div class="col-12">
+                            <div class="table-responsive">
+                              <table cellspacing="0" id="tabla" class="table table-hover">
+                                <thead>
+                                  <tr>
+                                    <th >Clave</th>
+                                    <th>Categoria</th>
+                                    <th>Ubicación</th>
+                                    <th>Descripción</th>
+                                    <th>Proveedor</th>
+                                    <th >Unidad</th>
+                                    <th >Disponible</th>
+                                    <th>Minimo</th>
+                                    <th>Opciones</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for p in productos %}
+                                  <tr>
+                                    <td id="idproducto">{{p.clave}}</td>
+                                    <td>
+                                      {% if p.categoria == '1' %}
+                                                  Equipo
+                                                  {% elif p.categoria == '2' %}
+                                                  Mueble
+                                                  {% elif p.categoria == '3' %}
+                                                  Accesorio
+                                                  {% elif p.categoria == '4' %}
+                                                  Herreria
+                                                  {% elif p.categoria == '5' %}
+                                                  Canceleria
+                                                  {% elif p.categoria == '6' %}
+                                                  Carpinteria
+                                                  {% elif p.categoria == '7' %}
+                                                  Acabado
+                                                  {% elif p.categoria == '8' %}
+                                                  Material
+                                                  {% endif %}
+
+
+                                    </td>
+                                    <td>{{p.ubicacion}}</td>
+                                    
+                                    <td>{{p.descripcion}}</td>
+                                    <td>{{p.proveedor}}</td>
+                                     <td>
+                                                      {% if p.unidad == '1' %}
+                                                      Pieza
+                                                      {% elif p.unidad == '2' %}
+                                                      Cubeta
+                                                      {% elif p.unidad == '3' %}
+                                                      Galón
+                                                      {% elif p.unidad == '4' %}
+                                                      Bulto
+                                                      {% elif p.unidad == '5' %}
+                                                      m³
+                                                      {% elif p.unidad == '6' %}
+                                                      Kg
+                                                      {% elif p.unidad == '7' %}
+                                                      Tonelada
+                                                      {% elif p.unidad == '8' %}
+                                                      Milla
+                                                      {% elif p.unidad == '9' %}
+                                                      Litro
+                                                      {% elif p.unidad == '10' %}
+                                                      Juego
+                                                      {% elif p.unidad == '11' %}
+                                                      Lote
+                                                      {% endif %}
+                                    </td>
+                                    <td>
+                                      {% if p.cantidad <= p.minimo %}
+                                          <span class="minimo"><strong>{{p.cantidad}}</strong></span>
+                                      {% else %}
+                                          <span class="normal">{{p.cantidad}}</span>
+                                      {% endif %}
+                                    </td>
+                                    <td>{{p.minimo}}</td> 
+                                    <td>
+                                      
+                                      
+                                      {% if perms.app.change_bodegaproductos %}
+                                      <a class="btn btn-sm" style="background-color:#110273; color:white" href="{% url 'app:modificar_producto' id=p.id bodega=bodega.id%}">Modificar</a>
+                                      {% endif %}
+                                      {% if perms.app.delete_bodegaproductos %}
+                                      <a class="btn btn-sm" style="background-color:#F20505; color:white" onclick="eliminarProductoBodega({{bodega.id}},{{p.id}})">Eliminar</a>
+                                      {% endif %}
+                                      {% if perms.app.change_bodegaproductos %}
+                                      <a class="btn btn-sm" style="background-color:#34495E; color:white" href="{% url 'app:villa_addproduct' bodega=bodega.id id=p.id bp=p.id%}" >Asignar a villa</a>
+                                      {% endif %}
+                                      {% if perms.app.change_bodegaproductos %}
+                                      <a class="btn btn-sm" style="background-color:#34495E; color:white" href="{% url 'app:traspaso'  id=p.id bodega=bodega.id bp=p.id  %}" >Traspaso a Bodega</a>
+                                      {% endif %}
+                                      
+                                    </td>
+                                  </tr>
+                                  
+                                  {% endfor %}
+                                 
+                                </tbody>
+                              </table>
+                              <hr>
+                            </div>
+                            <div class="row">
+                              <div class="col-4 col-md-8 col-sm-8 col-xs--"></div>
+                              <div class="col-4 col-md-4 col-sm-8 col-xs-8">
+                                  <a type="reset" value="Cancelar" style="background-color:#F20505; color:white" href="{% url 'app:listar_bodegas' %}" class="btn btn-md">Cancelar</a>
+                                  <input type="submit" value="Guardar" style="background-color:#110273; color:white" value="Guardar" class="btn btn-md">
+                              </div>
+                              
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                     
+                    </div>
+                  </div>
+                </div>
+            </div>
+    
+            {% include 'comun/script.html' %}
+            <script src={% static "app/js/paginator.js" %}></script>
+       
+    </body>
+    
+    
+    </html>

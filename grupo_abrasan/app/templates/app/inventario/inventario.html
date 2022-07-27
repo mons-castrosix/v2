@@ -1,0 +1,200 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Inventario</title>
+    {% include "comun/estilos.html"%}
+    {% load bootstrap5 %}
+    <link rel="stylesheet" href={% static 'app/css/inventario.css' %} type="text/css">
+   
+</head>
+
+<body class="bg-white" >
+    <!-- Sidenav -->
+    {% include 'comun/nav.html' %}
+    <!-- Main content -->
+    <div class="main-content bg-white" id="panel">
+        <!-- Topnav -->
+        {% include 'comun/navbar.html' %}
+
+        <div class="header pb-4 border-top">
+            <div class="container-fluid">
+                <div class="header-body">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-10 offset-md-1">
+              <div class="card">
+                <div class="card-header" style="background-color:#110273;">
+                  <div class="row">     
+                    <div class="col-6">
+                      <h3 style="color:white">Catalogo de Accesorios - Materiales - Equipos</h3>
+                    </div>
+                    <div class="col-6">
+                     
+                    </div>
+                  </div>
+              </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-5 col-sm-5"></div>
+                    <div class="col-7 col-sm-7">
+                      
+                    </div>
+                    
+                  </div>
+                  <div class="container">
+                    <div class="row mt-2">
+                      <div class="col-12">
+                        <div class="table-responsive">
+                          <table cellspacing="0" id="tabla" class="table table-hover">
+                            <thead>
+                              <tr>
+                                
+                                <th >Categoria</th>
+                                <th >Unidad</th>
+                                <th>Descripción</th>
+                                <th>Bodega</th>
+                                <th >Total</th>
+                                <!--<th>Opciones</th>-->
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for p in productos %}
+                              <tr style="background-color:#929090;">
+                                              <td style="background-color:#929090">
+                                                  {% if p.categoria == '1' %}
+                                                  Equipo
+                                                  {% elif p.categoria == '2' %}
+                                                  Mueble
+                                                  {% elif p.categoria == '3' %}
+                                                  Accesorio
+                                                  {% elif p.categoria == '4' %}
+                                                  Herreria
+                                                  {% elif p.categoria == '5' %}
+                                                  Canceleria
+                                                  {% elif p.categoria == '6' %}
+                                                  Carpinteria
+                                                  {% elif p.categoria == '7' %}
+                                                  Acabado
+                                                  {% elif p.categoria == '8' %}
+                                                  Material
+                                                  {% endif %}
+                                              </td>
+                                              <td>
+                                                  {% if p.unidad == '1' %}
+                                                  Pieza
+                                                  {% elif p.unidad == '2' %}
+                                                  Cubeta
+                                                  {% elif p.unidad == '3' %}
+                                                  Galón
+                                                  {% elif p.unidad == '4' %}
+                                                  Bulto
+                                                  {% elif p.unidad == '5' %}
+                                                  m³
+                                                  {% elif p.unidad == '6' %}
+                                                  Kg
+                                                  {% elif p.unidad == '7' %}
+                                                  Tonelada
+                                                  {% elif p.unidad == '8' %}
+                                                  Milla
+                                                  {% elif p.unidad == '9' %}
+                                                  Litro
+                                                  {% elif p.unidad == '10' %}
+                                                  Juego
+                                                  {% elif p.unidad == '11' %}
+                                                  Lote
+                                                  {% elif p.unidad == '12' %}
+                                                  m²
+                                                  {% endif %}
+                                              </td>
+                                              <td><span>{{p.descripcion}}</span></td>
+                                              <td></td>
+                                              <td  style="color:black; text-align: center; vertical-align: middle; font-weight: 900;"><strong> {{p.total}}</strong></td>
+                                              
+                                             
+                              </tr>
+                              {% for p2 in productos2  %}
+                                {% if p.descripcion == p2.descripcion %}
+                              <tr>
+                                
+                                <td style="background-color:#110273; color:white;">
+                                  {% if p2.categoria == '1' %}
+                                  Equipo
+                                  {% elif p2.categoria == '2' %}
+                                  Mueble
+                                  {% elif p2.categoria == '3' %}
+                                  Accesorio
+                                  {% elif p2.categoria == '4' %}
+                                  Herreria
+                                  {% elif p2.categoria == '5' %}
+                                  Canceleria
+                                  {% elif p2.categoria == '6' %}
+                                  Carpinteria
+                                  {% elif p2.categoria == '7' %}
+                                  Acabado
+                                  {% elif p2.categoria == '8' %}
+                                  Material
+                                  {% endif %}
+                              </td>
+                              <td>
+                                  {% if p2.unidad == '1' %}
+                                  Pieza
+                                  {% elif p2.unidad == '2' %}
+                                  Cubeta
+                                  {% elif p2.unidad == '3' %}
+                                  Galón
+                                  {% elif p2.unidad == '4' %}
+                                  Bulto
+                                  {% elif p2.unidad == '5' %}
+                                  m³
+                                  {% elif p2.unidad == '6' %}
+                                  Kg
+                                  {% elif p2.unidad == '7' %}
+                                  Tonelada
+                                  {% elif p2.unidad == '8' %}
+                                  Milla
+                                  {% elif p2.unidad == '9' %}
+                                  Litro
+                                  {% elif p2.unidad == '10' %}
+                                  Juego
+                                  {% elif p2.unidad == '11' %}
+                                  Lote
+                                  {% elif p2.unidad == '12' %}
+                                  m²
+                                  {% endif %}
+                              </td>
+                              <td><span>{{p2.descripcion}}</span></td>
+                              <td>{{p2.bodega__nombre}}</td>
+                              <td>{{p2.total}}</td>
+                                
+                              </tr>
+                              {% endif %}
+                              {% endfor %}
+                              {% endfor %}
+                             
+                            </tbody>
+                          </table>
+                          <hr>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                </div>
+              </div>
+            </div>
+        </div>
+
+        {% include 'comun/script.html' %}
+   
+</body>
+<script type="text/javascript" src= {% static 'app/js/simple_numbers_no_ellipses.js'%}></script>
+<script src={% static "app/js/paginator.js" %}></script>
+</html>

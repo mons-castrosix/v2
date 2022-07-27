@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Grupo Abrasan">
+    <link rel="icon" type="image/jpge" sizes="20x20" href={% static 'app/img/Logo.jpeg'%}>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={% static 'app/css/argon/nucleo.css' %} type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <!-- Argon CSS -->
+    <link rel="stylesheet" href={% static 'app/css/argon/argon.css' %} type="text/css">
+    <link rel="stylesheet" href={% static 'app/css/login.css' %} type="text/css">
+    <link rel="stylesheet" href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/filepond/dist/filepond.min.css">
+    <title>GRUPO ABRASAN</title>
+</head>
+
+<body>
+
+    <section class="vh-100" style="background-color:white">
+        <div class="container-fluid">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+              <img src={% static 'app/img/Logo.jpeg'%}
+                class="img-fluid" alt="logo">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+            {% block container %}
+                {% if error %}
+                <p class="alert alert-danger">{{ error }}</p>
+                {% endif%}
+              <form action="" method="post" class="user">
+                {% csrf_token %}
+                <!-- Email input -->
+                {{form.as_p}}
+      
+                
+      
+                <div class="text-center text-lg-start mt-4 pt-2">
+                  <input type="submit" id="submit" value="Registrarse" style="background-color:#110273; color:white" value="Login" class="btn btn-md">
+                  
+                </div>
+      
+              </form>
+              {% endblock %}
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+
+
+</body>
+
+</html>
+

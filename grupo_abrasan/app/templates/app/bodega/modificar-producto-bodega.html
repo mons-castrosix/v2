@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Añadir Producto</title>
+    {% include "comun/estilos.html"%}
+</head>
+
+<body class="bg-white" >
+    <!-- Sidenav -->
+    {% include 'comun/nav.html' %}
+    <!-- Main content -->
+    <div class="main-content bg-white" id="panel">
+        <!-- Topnav -->
+        {% include 'comun/navbar.html' %}
+
+        <div class="header pb-4 border-top">
+            <div class="container-fluid">
+                <div class="header-body">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <!-- Page content -->
+                <div class="row">
+                    <div class="col-12 col-md-8 offset-md-2">
+                        <div class="card">
+                            <div class="card-header" style="background-color:#110273;">
+                                <h3 style="color:white">Modificar producto en Bodega</h3>
+                            </div>
+                            <div class="card-body">
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-row">
+                                        <div class="form-group col-md-7">
+                                            <label for="">{{producto.descripcion}}</label>
+                                            <input type="hidden" name="producto" value="{{producto.id}}">
+                                        </div>
+                                        <div class="form-group col-md-5">
+                                            {{form.ubicacion.label_tag}}
+                                            {{form.ubicacion}}
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-7">
+                                            {{form.cantidad.label_tag}}
+                                            {{form.cantidad}}
+                                        </div>
+                                        <div class="form-group col-md-5">
+                                            {{form.minimo.label_tag}}
+                                            {{form.minimo}}  
+                                            <input type="hidden" name="bodega" value="{{bp.bodega_id}}">
+                                        </div>
+
+                                    </div>
+                                   
+                                    <input type="reset" value="Cancelar" style="background-color:#F20505; color:white" href="{% url 'app:listar_productobodega' bodega %}"  class="btn btn-md">
+                                    <input type="submit" value="Guardar" style="background-color:#110273; color:white" value="Guardar" class="btn btn-md">
+                                </form>
+                                {{mensaje}}
+                        </div>
+                    </div>
+                </div>
+       
+        </div>
+        
+        
+    </div>
+
+    {% include 'comun/script.html'  %}
+   
+</body>
+
+</html>
